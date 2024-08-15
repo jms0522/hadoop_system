@@ -6,7 +6,7 @@
   <img src="https://media.giphy.com/media/usXZmmgP9Z7kf39fnq/giphy.gif" width="480" height="480" />
 </p>
 <p align="center">
-  <a href="https://giphy.com/gifs/pudgypenguins-data-engineering-doesnt-lie-usXZmmgP9Z7kf39fnq">via GIPHY</a>
+  <a href="https://giphy.com/gifs/pudgypenguins-data-engineering-doesnt-lie-usXZmmgP9Z7kf39fnq"></a>
 </p>
 
 ## 📋 프로젝트 개요
