@@ -3,7 +3,10 @@
 이 프로젝트는 Hadoop과 Spark를 사용하여 **배치 파이프라인**과 **스트리밍 파이프라인**을 처리하고 분석할 수 있는 환경을 구축하는 것을 목표로 합니다. 대용량 데이터의 효율적인 처리와 실시간 데이터 스트리밍 분석을 통해 비즈니스 인사이트를 도출합니다.
 
 <p align="center">
-  <img src="![image]()"/>
+  <img src="https://media.giphy.com/media/usXZmmgP9Z7kf39fnq/giphy.gif" width="480" height="480" />
+</p>
+<p align="center">
+  <a href="https://giphy.com/gifs/pudgypenguins-data-engineering-doesnt-lie-usXZmmgP9Z7kf39fnq">via GIPHY</a>
 </p>
 
 ## 📋 프로젝트 개요
