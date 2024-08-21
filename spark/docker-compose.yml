@@ -13,19 +13,36 @@ services:
     networks:
       - hadoop_spark_net
 
-  spark-worker:
+  spark-worker-1:
     image: bitnami/spark:latest
+    container_name: spark-worker-1
     environment:
       - SPARK_MODE=worker
       - SPARK_MASTER_URL=spark://spark-master:7077
       - SPARK_WORKER_MEMORY=2g
       - SPARK_WORKER_CORES=2
-      - SPARK_RPC_AUTHENTICATION_ENABLED=no
-      - SPARK_RPC_ENCRYPTION_ENABLED=no
-      - SPARK_LOCAL_STORAGE_ENCRYPTION_ENABLED=no
-      - SPARK_SSL_ENABLED=no
-    depends_on:
-      - spark-master
+    networks:
+      - hadoop_spark_net
+
+  spark-worker-2:
+    image: bitnami/spark:latest
+    container_name: spark-worker-2
+    environment:
+      - SPARK_MODE=worker
+      - SPARK_MASTER_URL=spark://spark-master:7077
+      - SPARK_WORKER_MEMORY=2g
+      - SPARK_WORKER_CORES=2
+    networks:
+      - hadoop_spark_net
+
+  spark-worker-3:
+    image: bitnami/spark:latest
+    container_name: spark-worker-3
+    environment:
+      - SPARK_MODE=worker
+      - SPARK_MASTER_URL=spark://spark-master:7077
+      - SPARK_WORKER_MEMORY=2g
+      - SPARK_WORKER_CORES=2
     networks:
       - hadoop_spark_net
 
@@ -34,7 +51,7 @@ services:
     ports:
       - "8888:8888"
     volumes:
-      - ./jupyterlab:/home/jovyan/work
+      - /home/ubuntu/hadoop_system/spark/jupyterlab:/home/jovyan/work
     environment:
       - JUPYTER_ENABLE_LAB=yes
       - GRANT_SUDO=yes
@@ -86,3 +103,4 @@ services:
 
 networks:
   hadoop_spark_net:
+    external: true

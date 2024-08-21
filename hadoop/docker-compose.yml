@@ -100,3 +100,4 @@ volumes:
 
 networks:
   hadoop_spark_net:
+    external: true
