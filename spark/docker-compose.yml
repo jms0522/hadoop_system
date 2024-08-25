@@ -2,8 +2,10 @@ version: '3'
 services:
   spark-master:
     image: bitnami/spark:latest
+    container_name: spark-master
     ports:
-      - "7070:8080"
+      - "7077:7077"  # 이 포트는 워커와 마스터 간 통신에 사용됩니다.
+      - "7070:8080"  # 이 포트는 Spark 웹 UI에 접근하기 위해 사용됩니다.
     environment:
       - SPARK_MODE=master
       - SPARK_RPC_AUTHENTICATION_ENABLED=no
@@ -21,6 +23,8 @@ services:
       - SPARK_MASTER_URL=spark://spark-master:7077
       - SPARK_WORKER_MEMORY=2g
       - SPARK_WORKER_CORES=2
+      - SPARK_DAEMON_MEMORY=1g  # 추가된 JVM 메모리 설정
+      - SPARK_EXECUTOR_MEMORY=2g # 추가된 Executor 메모리 설정
     networks:
       - hadoop_spark_net
 
@@ -32,6 +36,8 @@ services:
       - SPARK_MASTER_URL=spark://spark-master:7077
       - SPARK_WORKER_MEMORY=2g
       - SPARK_WORKER_CORES=2
+      - SPARK_DAEMON_MEMORY=1g  # 추가된 JVM 메모리 설정
+      - SPARK_EXECUTOR_MEMORY=2g # 추가된 Executor 메모리 설정
     networks:
       - hadoop_spark_net
 
@@ -43,6 +49,8 @@ services:
       - SPARK_MASTER_URL=spark://spark-master:7077
       - SPARK_WORKER_MEMORY=2g
       - SPARK_WORKER_CORES=2
+      - SPARK_DAEMON_MEMORY=1g  # 추가된 JVM 메모리 설정
+      - SPARK_EXECUTOR_MEMORY=2g # 추가된 Executor 메모리 설정
     networks:
       - hadoop_spark_net
 

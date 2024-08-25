@@ -6,8 +6,8 @@ services:
     container_name: namenode
     restart: always
     ports:
-      - 9870:9870
-      - 9000:9000
+      - "9870:9870"  # Hadoop NameNode Web UI
+      - "9000:9000"  # HDFS
     volumes:
       - hadoop_namenode:/hadoop/dfs/name
     environment:
@@ -21,6 +21,8 @@ services:
     image: bde2020/hadoop-datanode:2.0.0-hadoop3.2.1-java8
     container_name: datanode1
     restart: always
+    ports:
+      - "9864:9864"  # Hadoop DataNode Web UI
     volumes:
       - hadoop_datanode:/hadoop/dfs/data
     environment:
@@ -34,6 +36,8 @@ services:
     image: bde2020/hadoop-datanode:2.0.0-hadoop3.2.1-java8
     container_name: datanode2
     restart: always
+    ports:
+      - "9865:9864"  # Hadoop DataNode Web UI (포트를 중복되지 않게 설정)
     volumes:
       - hadoop_datanode2:/hadoop/dfs/data
     environment:
@@ -47,6 +51,8 @@ services:
     image: bde2020/hadoop-datanode:2.0.0-hadoop3.2.1-java8
     container_name: datanode3
     restart: always
+    ports:
+      - "9866:9864"  # Hadoop DataNode Web UI (포트를 중복되지 않게 설정)
     volumes:
       - hadoop_datanode3:/hadoop/dfs/data
     environment:
@@ -60,8 +66,10 @@ services:
     image: bde2020/hadoop-resourcemanager:2.0.0-hadoop3.2.1-java8
     container_name: resourcemanager
     restart: always
+    ports:
+      - "8088:8088"  # ResourceManager Web UI
     environment:
-      SERVICE_PRECONDITION: "namenode:9000 namenode:9870 datanode:9864"
+      SERVICE_PRECONDITION: "namenode:9000 namenode:9870 datanode1:9864 datanode2:9864 datanode3:9864"
     env_file:
       - ./hadoop.env
     networks:
@@ -71,8 +79,10 @@ services:
     image: bde2020/hadoop-nodemanager:2.0.0-hadoop3.2.1-java8
     container_name: nodemanager
     restart: always
+    ports:
+      - "8042:8042"  # NodeManager Web UI
     environment:
-      SERVICE_PRECONDITION: "namenode:9000 namenode:9870 datanode:9864 resourcemanager:8088"
+      SERVICE_PRECONDITION: "namenode:9000 namenode:9870 datanode1:9864 datanode2:9864 datanode3:9864 resourcemanager:8088"
     env_file:
       - ./hadoop.env
     networks:
@@ -82,12 +92,26 @@ services:
     image: bde2020/hadoop-historyserver:2.0.0-hadoop3.2.1-java8
     container_name: historyserver
     restart: always
+    ports:
+      - "8188:8188"  # HistoryServer Web UI
     environment:
-      SERVICE_PRECONDITION: "namenode:9000 namenode:9870 datanode:9864 resourcemanager:8088"
+      SERVICE_PRECONDITION: "namenode:9000 namenode:9870 datanode1:9864 datanode2:9864 datanode3:9864 resourcemanager:8088"
     volumes:
       - hadoop_historyserver:/hadoop/yarn/timeline
     env_file:
       - ./hadoop.env
+    networks:
+      - hadoop_spark_net
+
+  jupyterlab:
+    image: jupyter/pyspark-notebook:latest
+    ports:
+      - "9999:8888"
+    environment:
+      - JUPYTER_ENABLE_LAB=yes
+      - GRANT_SUDO=yes
+    volumes:
+      - /path/to/your/workdir:/home/jovyan/work
     networks:
       - hadoop_spark_net
 
