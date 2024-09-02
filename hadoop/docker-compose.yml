@@ -133,6 +133,7 @@ services:
       - GRANT_SUDO=yes
     volumes:
       - /home/ubuntu/hadoop_system/hadoop/work:/home/jovyan/work
+      - /home/ubuntu/hadoop_system/hadoop/jupyter:/home/jovyan/.jupyter
     networks:
       - hadoop_spark_net
 
