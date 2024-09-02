@@ -149,7 +149,7 @@ services:
       - ./logstash/config/pipeline.yml:/usr/share/logstash/config/pipelines.yml:ro,Z
       - ./logstash/pipeline/:/usr/share/logstash/pipeline/:ro,Z
     environment:
-      LS_JAVA_OPTS: "-Xmx256m -Xms1024m"
+      LS_JAVA_OPTS: "-Xmx256m -Xms512m"
     networks:
       - hadoop_spark_net
 
@@ -176,8 +176,8 @@ services:
       - KAFKA_ADVERTISED_LISTENERS=PLAINTEXT://3.38.192.56:9092
       - KAFKA_INTER_BROKER_LISTENER_NAME=PLAINTEXT
       - ALLOW_PLAINTEXT_LISTENER=yes
-    volumes:
-      - ./kafka/server.properties:/opt/bitnami/kafka/config/server.properties
+        #    volumes:
+        #- ./kafka/server.properties:/opt/bitnami/kafka/config/server.properties
     depends_on:
       - zookeeper
     networks:
