@@ -125,13 +125,14 @@ services:
 
   jupyterlab:
     image: jupyter/pyspark-notebook:latest
+    user: root
     ports:
       - "9999:8888"
     environment:
       - JUPYTER_ENABLE_LAB=yes
       - GRANT_SUDO=yes
     volumes:
-      - /path/to/your/workdir:/home/jovyan/work
+      - /home/ubuntu/hadoop_system/hadoop/work:/home/jovyan/work
     networks:
       - hadoop_spark_net
 
