@@ -148,6 +148,7 @@ services:
       - ./logstash/config/logstash.yml:/usr/share/logstash/config/logstash.yml:ro,Z
       - ./logstash/config/pipeline.yml:/usr/share/logstash/config/pipelines.yml:ro,Z
       - ./logstash/pipeline/:/usr/share/logstash/pipeline/:ro,Z
+      - /var/lib/docker/containers:/var/lib/docker/containers:ro
     environment:
       LS_JAVA_OPTS: "-Xms256m -Xmx512m"
     networks:
