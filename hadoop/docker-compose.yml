@@ -139,6 +139,7 @@ services:
       - hadoop_spark_net
 
   logstash:
+    user: root
     image: docker.elastic.co/logstash/logstash:7.14.0
     container_name: logstash
     ports:
@@ -148,7 +149,7 @@ services:
       - ./logstash/config/logstash.yml:/usr/share/logstash/config/logstash.yml:ro,Z
       - ./logstash/config/pipeline.yml:/usr/share/logstash/config/pipelines.yml:ro,Z
       - ./logstash/pipeline/:/usr/share/logstash/pipeline/:ro,Z
-      - /var/lib/docker/containers:/var/lib/docker/containers:ro
+      - /var/lib/docker/containers:/var/lib/docker/containers:rw,Z
     environment:
       LS_JAVA_OPTS: "-Xms256m -Xmx512m"
     networks:
